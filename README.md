@@ -1,4 +1,4 @@
-#**Traffic Sign Recognition** 
+#**Traffic Sign Recognition**
 
 **Build a Traffic Sign Recognition Project**
 
@@ -25,8 +25,8 @@ Here is a link to my [project code](https://github.com/hrektts/CarND-Traffic-Sig
 
 ###Data Set Summary & Exploration
 
-The code for this step is contained in the second and the third code cell of the
-IPython notebook.  
+The code for this step is contained in the second to fourth code cell of the
+IPython notebook.
 
 I used the numpy library to calculate summary statistics of the traffic
 signs data set:
@@ -37,36 +37,26 @@ signs data set:
 * The number of unique classes/labels in the data set is 43
 
 The graph below shows what classes/labels are contained in the training data.
-the data is not evenly distributed
+It is clear that the classes is not evenly distributed.
 
 ![alt text][image1]
 
-
-####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
-
-The code for this step is contained in the third code cell of the IPython notebook.  
-
-Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
-
-
-
 ###Design and Test a Model Architecture
 
-####1. Describe how, and identify where in your code, you preprocessed the image data. What tecniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc.
+The code for preprocessing the data is contained in the fifth code cell of the
+IPython notebook.
 
-The code for this step is contained in the fourth code cell of the IPython notebook.
+As a first step, I decided to subtract the mean of all pixels of the training set
+to eliminate the effect of brightness difference among pictures.
 
-As a first step, I decided to convert the images to grayscale because ...
-
-Here is an example of a traffic sign image before and after grayscaling.
-
-![alt text][image2]
-
-As a last step, I normalized the image data because ...
+Next, I normalized the value of the pixel between -1 and 1. This operation is not necessary
+for the data set because the pixel of the images always have a value between 0 and 255.
+However, I did it because the model created in the following steps can be used for other
+data set.
 
 ####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
 
-The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.  
+The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.
 
 To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
 
