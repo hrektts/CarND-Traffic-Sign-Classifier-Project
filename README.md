@@ -10,11 +10,11 @@ The goals / steps of this project are the following:
 * Analyze the softmax probabilities of the new images
 * Summarize the results with a written report
 
-Here is a link to my [project code](https://github.com/hrektts/CarND-Traffic-Sign-Classifier-Project/blob/submission/Traffic_Sign_Classifier.ipynb)
+Here is a link to my [project code](https://github.com/hrektts/CarND-Traffic-Sign-Classifier-Project/blob/submission/Traffic_Sign_Classifier.ipynb).
 
 [//]: # (Image References)
 
-[image1]: ./fig/training_data_distribution.svg "Distribution of training data"
+[image1]: ./fig/training_data_distribution.png "Distribution of training data"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
 [image4]: ./examples/placeholder.png "Traffic Sign 1"
@@ -36,14 +36,19 @@ signs data set:
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
-The graph below shows what kind of images are contained in the training data.
+The graph below shows what classes/labels are contained in the training data.
+the data is not evenly distributed
+
+![alt text][image1]
+
+
 ####2. Include an exploratory visualization of the dataset and identify where the code is in your code file.
 
 The code for this step is contained in the third code cell of the IPython notebook.  
 
 Here is an exploratory visualization of the data set. It is a bar chart showing how the data ...
 
-![alt text][image1]
+
 
 ###Design and Test a Model Architecture
 
