@@ -14,14 +14,14 @@ Here is a link to my [project code](https://github.com/hrektts/CarND-Traffic-Sig
 
 [//]: # (Image References)
 
-[image1]: ./fig/training_data_distribution.png "Distribution of training data"
+[distribution]: ./fig/training_data_distribution.png "Distribution of training data"
 [image2]: ./examples/grayscale.jpg "Grayscaling"
 [image3]: ./examples/random_noise.jpg "Random Noise"
-[image4]: ./examples/placeholder.png "Traffic Sign 1"
-[image5]: ./examples/placeholder.png "Traffic Sign 2"
-[image6]: ./examples/placeholder.png "Traffic Sign 3"
-[image7]: ./examples/placeholder.png "Traffic Sign 4"
-[image8]: ./examples/placeholder.png "Traffic Sign 5"
+[limit_30]: ./examples/limit_30_l.jpg "Limit 30 Sign"
+[curve_left]: ./examples/curve_left_l.jpg "Curve Left Sign"
+[wild_animal]: ./examples/wild_animals_crossing_l.jpg "Wild Animal Sign"
+[stop]: ./examples/stop_l.jpg "Stop Sign"
+[elderly_people]: ./examples/elderly_people_l.jpg "Elderly People Sign"
 
 ###Data Set Summary & Exploration
 
@@ -39,7 +39,7 @@ signs data set:
 The graph below shows what classes/labels are contained in the training data.
 It is clear that the classes is not evenly distributed.
 
-![alt text][image1]
+![Distribution of training data][distribution]
 
 ###Design and Test a Model Architecture
 
@@ -77,23 +77,30 @@ The code for my final model is located in the seventh cell of the ipython notebo
 
 My final model consisted of the following layers:
 
-| Layer         		|     Description	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| Input         		| 32x32x3 RGB image   							| 
-| Convolution 3x3     	| 1x1 stride, same padding, outputs 32x32x64 	|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride,  outputs 16x16x64 				|
-| Convolution 3x3	    | etc.      									|
-| Fully connected		| etc.        									|
-| Softmax				| etc.        									|
-|						|												|
-|						|												|
- 
+| Layer                 | Description                                   |
+|:---------------------:|:---------------------------------------------:|
+| Input                 | 32x32x3 RGB image                             |
+| Convolution 5x5       | 1x1 stride, same padding, outputs 32x32x32    |
+| RELU                  |                                               |
+| Convolution 5x5       | 1x1 stride, same padding, outputs 32x32x64    |
+| RELU                  |                                               |
+| Max pooling           | 2x2 stride,  outputs 16x16x64                 |
+| Convolution 5x5       | 1x1 stride, same padding, outputs 16x16x128   |
+| RELU                  |                                               |
+| Max pooling           | 2x2 stride,  outputs 8x8x128                  |
+| Fully connected       | output 1024                                   |
+| RELU                  |                                               |
+| Dropout               | 25% (keep 75%)                                |
+| Fully connected       | output 256                                    |
+| RELU                  |                                               |
+| Dropout               | 25% (keep 75%)                                |
+| Fully connected       | output 34                                     |
+| Softmax               |                                               |
 
 
 ####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-The code for training the model is located in the eigth cell of the ipython notebook. 
+The code for training the model is located in the eigth cell of the ipython notebook.
 
 To train the model, I used an ....
 
@@ -121,14 +128,22 @@ If a well known architecture was chosen:
 
 ###Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
-
 Here are five German traffic signs that I found on the web:
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8]
+![Limit 30 Sign][limit_30] ![Curve Left Sign][curve_left]
+![Wild Animal Sign][wild_animal] ![Stop Sign][stop]
+![Elderly People Sign][elderly_people]
 
-The first image might be difficult to classify because ...
+The first image might be difficult to classify because it is not facing right.
+The second image might be difficult too because this class is trained with
+a small amount of images compared to the other classes.
+The third image is also considered to be difficult because it is a mirror image.
+The fourth image might also be difficult because the outline of the sign is
+different from ordinary.
+The fifth image cannot be categolize correctly using the model trained above because
+this kind of signs, which alert elderly people crossing, are not contained in
+the training data. However, I selected it because I was interested in how it
+to be classified.
 
 ####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -136,13 +151,13 @@ The code for making predictions on my final model is located in the tenth cell o
 
 Here are the results of the prediction:
 
-| Image			        |     Prediction	        					| 
+| Image                 | Prediction                                  |
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Limit 30 Sign         | Stop sign   									| 
+| Curve Left Sign       | U-turn 										|
+| Wild Animal Sign      | Yield											|
+| Stop Sign             | Bumpy Road					 				|
+| Elderly People Sign   | Slippery Road      							|
 
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
