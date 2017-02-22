@@ -70,10 +70,7 @@ Here is an example of an original image and an augmented image:
 
 The difference between the original data set and the augmented data set is the following ... 
 
-
-####3. Describe, and identify where in your code, what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
-
-The code for my final model is located in the seventh cell of the ipython notebook. 
+The code for my final model is located in the seventh cell of the ipython notebook.
 
 My final model consisted of the following layers:
 
@@ -140,7 +137,7 @@ a small amount of images compared to the other classes.
 The third image is also considered to be difficult because it is a mirror image.
 The fourth image might also be difficult because the outline of the sign is
 different from ordinary.
-The fifth image cannot be categolize correctly using the model trained above because
+The fifth image cannot be categorized correctly using the model trained above because
 this kind of signs, which alert elderly people crossing, are not contained in
 the training data. However, I selected it because I was interested in how it
 to be classified.
