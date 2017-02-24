@@ -15,8 +15,6 @@ Here is a link to my [project code](https://github.com/hrektts/CarND-Traffic-Sig
 [//]: # (Image References)
 
 [distribution]: ./fig/training_data_distribution.png "Distribution of training data"
-[image2]: ./examples/grayscale.jpg "Grayscaling"
-[image3]: ./examples/random_noise.jpg "Random Noise"
 [limit_30]: ./examples/limit_30_l.jpg "Limit 30 Sign"
 [curve_left]: ./examples/curve_left_l.jpg "Curve Left Sign"
 [wild_animal]: ./examples/wild_animals_crossing_l.jpg "Wild Animal Sign"
@@ -46,31 +44,19 @@ It is clear that the classes is not evenly distributed.
 The code for preprocessing the data is contained in the fifth code cell of the
 IPython notebook.
 
-As a first step, I decided to subtract the mean of all pixels of the training set
-to eliminate the effect of brightness difference among pictures.
+As a first step, I decided to subtract the mean of all pixels of the training
+set to eliminate the effect of brightness difference among pictures.
 
-Next, I normalized the value of the pixel between -1 and 1. This operation is not necessary
-for the data set because the pixel of the images always have a value between 0 and 255.
-However, I did it because the model created in the following steps can be used for other
-data set.
+Next, I normalized the value of the pixel between -1 and 1. This operation is
+not necessary for the data set because the pixel of the images always have a
+value between 0 and 255.
+However, I did it because the model created in the following steps can be used
+for other data set.
 
-####2. Describe how, and identify where in your code, you set up training, validation and testing data. How much data was in each set? Explain what techniques were used to split the data into these sets. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, identify where in your code, and provide example images of the additional data)
+To cross validate my model, I used provided validation data, which number of
+images was 4410.
 
-The code for splitting the data into training and validation sets is contained in the fifth code cell of the IPython notebook.
-
-To cross validate my model, I randomly split the training data into a training set and validation set. I did this by ...
-
-My final training set had X number of images. My validation set and test set had Y and Z number of images.
-
-The sixth code cell of the IPython notebook contains the code for augmenting the data set. I decided to generate additional data because ... To add more data to the the data set, I used the following techniques because ... 
-
-Here is an example of an original image and an augmented image:
-
-![alt text][image3]
-
-The difference between the original data set and the augmented data set is the following ... 
-
-The code for my final model is located in the seventh cell of the ipython notebook.
+The code for my final model is located in the sixth cell of the ipython notebook.
 
 My final model consisted of the following layers:
 
@@ -91,37 +77,42 @@ My final model consisted of the following layers:
 | Fully connected       | output 256                                    |
 | RELU                  |                                               |
 | Dropout               | 25% (keep 75%)                                |
-| Fully connected       | output 34                                     |
+| Fully connected       | output 43                                     |
 | Softmax               |                                               |
 
 
-####4. Describe how, and identify where in your code, you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+The code for training the model is located in the seventh to eighth cell of the
+ipython notebook.
 
-The code for training the model is located in the eigth cell of the ipython notebook.
+To train the model, I used an adam optimizer. To select the batch size and
+learning rate, I tested the value of 64, 128, 256 and 0.0001, 0.001, 0.01
+respectively. As a result, I choosed 128 for the batch size and 0.001 for the
+learning rate because the highest validation accuracy was achieved with the
+values.
 
-To train the model, I used an ....
-
-####5. Describe the approach taken for finding a solution. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
-
-The code for calculating the accuracy of the model is located in the ninth cell of the Ipython notebook.
+The code for calculating the accuracy of the model is located in the eighth to
+ninth cell of the Ipython notebook.
 
 My final model results were:
-* training set accuracy of ?
-* validation set accuracy of ? 
-* test set accuracy of ?
+* training set accuracy of 0.998
+* validation set accuracy of 0.962
+* test set accuracy of 0.950
 
-If an iterative approach was chosen:
-* What was the first architecture that was tried and why was it chosen?
-* What were some problems with the initial architecture?
-* How was the architecture adjusted and why was it adjusted? Typical adjustments could include choosing a different model architecture, adding or taking away layers (pooling, dropout, convolution, etc), using an activation function or changing the activation function. One common justification for adjusting an architecture would be due to over fitting or under fitting. A high accuracy on the training set but low accuracy on the validation set indicates over fitting; a low accuracy on both sets indicates under fitting.
-* Which parameters were tuned? How were they adjusted and why?
-* What are some of the important design choices and why were they chosen? For example, why might a convolution layer work well with this problem? How might a dropout layer help with creating a successful model?
+To find the solution, I took an iterative approach.
+First, I tested LeNet-5, which achieved about 85% of validation accuracy.
+I thought the accuracy would be improved if the model could recognize
+complicated figures because LeNet-5 was devised to identify characters.
 
-If a well known architecture was chosen:
-* What architecture was chosen?
-* Why did you believe it would be relevant to the traffic sign application?
-* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
- 
+Next my approach to improve the model was increasing depth of each layer. I did
+this because I wanted my model to recognize more characteristics. As a result,
+validation accuracy was improved to about 90%.
+
+Finally, I increased the number of convolution layers because I wanted to
+increase the granularity of the characteristics recognized by the model.
+As mentioned in the lecture video “Visualizing CNNs”, each layer is trained to
+learn different granularity of characteristics. I increased the layer because
+I thought that the traffic signs is composed from multiple shapes with different
+complexity. As a result, my model achieved 96% of validation accuracy.
 
 ###Test a Model on New Images
 
@@ -132,32 +123,46 @@ Here are five German traffic signs that I found on the web:
 ![Elderly People Sign][elderly_people]
 
 The first image might be difficult to classify because it is not facing right.
+
 The second image might be difficult too because this class is trained with
 a small amount of images compared to the other classes.
+
 The third image is also considered to be difficult because it is a mirror image.
+
 The fourth image might also be difficult because the outline of the sign is
 different from ordinary.
-The fifth image cannot be categorized correctly using the model trained above because
-this kind of signs, which alert elderly people crossing, are not contained in
-the training data. However, I selected it because I was interested in how it
-to be classified.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. Identify where in your code predictions were made. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+The fifth image cannot be categorized correctly using the model trained above
+because this kind of signs, which alert elderly people crossing, are not
+contained in the training data. However, I selected it because I was interested
+in how it to be classified.
 
-The code for making predictions on my final model is located in the tenth cell of the Ipython notebook.
+The code for making predictions on my final model is located in the tenth cell of
+the Ipython notebook.
 
 Here are the results of the prediction:
 
-| Image                 | Prediction                                  |
-|:---------------------:|:---------------------------------------------:| 
-| Limit 30 Sign         | Stop sign   									| 
-| Curve Left Sign       | U-turn 										|
-| Wild Animal Sign      | Yield											|
-| Stop Sign             | Bumpy Road					 				|
-| Elderly People Sign   | Slippery Road      							|
+| Image                        | Prediction                                |
+|:----------------------------:|:-----------------------------------------:|
+| Speed limit (30km/h)         | Speed limit (30km/h)                      |
+| Dangerous curve to the left  | Dangerous curve to the left               |
+| Wild animals crossing        | Children crossing                         |
+| Stop                         | Stop                                      |
+| Elderly people crossing      | Dangerous curve to the right              |
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
+The model was able to correctly guess 3 of the 5 traffic signs, which gives an
+accuracy of 60%. This is worse than the accuracy of the test set. It is mainly
+because I choosed the images which are not contained in the training set.
+
+The mistakes for the third image might be improved by providing flipped image
+when I augmented the training set. However, some classes of the images cannot
+be flipped because the processed image will have different meanings.
+For example, the second image cannot be flipped with correct meaning.
+Fully automated pre-processing might be difficult for this reason.
+
+The mistakes for the fifth image is predicted. I am interested how my model
+mistakes and it will discussed in the following section.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
@@ -165,13 +170,50 @@ The code for making predictions on my final model is located in the 11th cell of
 
 For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
 
-| Probability         	|     Prediction	        					| 
-|:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| Probability           | Prediction                                    |
+|:---------------------:|:---------------------------------------------:|
+| .60                   | Stop sign                                     |
+| .20                   | U-turn                                        |
+| .05                   | Yield                                         |
+| .04                   | Bumpy Road                                    |
+| .01                   | Slippery Road                                 |
 
+For the second image ...
 
-For the second image ... 
+| Probability           | Prediction                                    |
+|:---------------------:|:---------------------------------------------:|
+| .60                   | Stop sign                                     |
+| .20                   | U-turn                                        |
+| .05                   | Yield                                         |
+| .04                   | Bumpy Road                                    |
+| .01                   | Slippery Road                                 |
+
+For the third image ...
+
+| Probability           | Prediction                                    |
+|:---------------------:|:---------------------------------------------:|
+| .60                   | Stop sign                                     |
+| .20                   | U-turn                                        |
+| .05                   | Yield                                         |
+| .04                   | Bumpy Road                                    |
+| .01                   | Slippery Road                                 |
+
+For the fourth image ...
+
+| Probability           | Prediction                                    |
+|:---------------------:|:---------------------------------------------:|
+| .60                   | Stop sign                                     |
+| .20                   | U-turn                                        |
+| .05                   | Yield                                         |
+| .04                   | Bumpy Road                                    |
+| .01                   | Slippery Road                                 |
+
+For the fifth image ...
+
+| Probability           | Prediction                                    |
+|:---------------------:|:---------------------------------------------:|
+| .60                   | Stop sign                                     |
+| .20                   | U-turn                                        |
+| .05                   | Yield                                         |
+| .04                   | Bumpy Road                                    |
+| .01                   | Slippery Road                                 |
