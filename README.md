@@ -162,7 +162,7 @@ For example, the second image cannot be flipped with correct meaning.
 Fully automated pre-processing might be difficult for this reason.
 
 The mistakes for the fifth image is predicted. I am interested how my model
-mistakes and it will discussed in the following section.
+mistakes and it will discussed in the following part.
 
 ####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction and identify where in your code softmax probabilities were outputted. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
